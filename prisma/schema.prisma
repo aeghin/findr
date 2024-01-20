@@ -1,0 +1,45 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  clerkId    String     @unique
+  categories Category[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  userId   Int
+  user     User      @relation(fields: [userId], references: [id])
+  accounts Account[]
+
+  @@index([userId])
+}
+
+model Account {
+  id         Int      @id @default(autoincrement())
+  name       String
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  links      Link[]
+
+  @@index([categoryId])
+}
+
+model Link {
+  id        Int     @id @default(autoincrement())
+  platform  String
+  url       String
+  accountId Int
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@index([accountId])
+}
