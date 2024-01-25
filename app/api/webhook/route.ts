@@ -51,8 +51,8 @@ export async function POST(req: Request) {
     const eventType = evt.type;
 
     if (eventType === 'user.created') {
-       
-        const clerkId = evt.data.id as string;
+
+        const clerkId = payload.data.id as string;
 
         await prismadb.user.create({
             data: {
