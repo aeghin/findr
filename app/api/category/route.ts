@@ -40,12 +40,6 @@ export async function POST(req: Request) {
             },
         });
 
-        const categories = await prismadb.category.findMany({
-            where: { userId: user.id }
-        });
-
-        return NextResponse.json(categories);
-
 
     } catch (error) {
         console.log("code error", error);
