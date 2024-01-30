@@ -2,24 +2,25 @@
 
 
 import axios from 'axios';
-
+import { useCreateCategory } from '@/store/create-cat-modal';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     Card,
-    CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 
 import { Montserrat } from 'next/font/google';
+import CategoryModal from '@/components/CategoryModal';
 
-const mont = Montserrat({ weight: '600', subsets: ['latin']});
+const mont = Montserrat({ weight: '600', subsets: ['latin'] });
 
 const DashboardPage = () => {
 
+    const isOpen = useCreateCategory((state) => state.isOpen);
+    const openModal = useCreateCategory((state) => state.onOpen);
 
     type Category = {
         id: number;
@@ -52,9 +53,9 @@ const DashboardPage = () => {
                             <CardDescription className={`text-center ${mont.className}`}>finance, crypto, sports..</CardDescription>
                         </CardHeader>
                         <div className='flex justify-center mt-12'>
-                        <Button className='w-1/3'>
-                            Create Category
-                        </Button>
+                            <Button className='w-1/3' onClick={openModal}>
+                                Create Category
+                            </Button>
                         </div>
                     </Card>
                 </div>
@@ -66,6 +67,9 @@ const DashboardPage = () => {
                         </div>
                     ))}
                 </div>
+            }
+            {
+                isOpen && <CategoryModal />
             }
         </>
     )

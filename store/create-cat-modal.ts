@@ -9,7 +9,7 @@ interface CreateCategory {
 export const useCreateCategory = create<CreateCategory>((set) => ({
     isOpen: false,
     onClose: () => set({
-        isOpen: false;
+        isOpen: false
     }),
     onOpen: () => set({
         isOpen: true
