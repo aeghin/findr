@@ -1,40 +1,77 @@
 import { Button } from "@/components/ui/button"
-import { DialogTrigger, DialogTitle, DialogHeader, DialogFooter, DialogContent, Dialog } from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { XCircle } from "lucide-react";
 
-import { useCreateCategory } from "@/store/create-cat-modal"
+import * as z from 'zod';
 
+import { useCreateCategory } from "@/store/create-cat-modal";
 
-export default function CategoryModal() {
+import { useState } from "react";
+
+export const CategoryModal = () => {
+
+  const [category, setCategory] = useState('');
+  const [error, setError] = useState('');
+
+  const formSchema = z.object({
+    category: z.string().min(2, {
+      message: 'category must be a minimum of 2 characters'
+    }).max(12, {
+      message: 'category name has to be less than 12 characters'
+    }),
+  });
 
   const close = useCreateCategory((state) => state.onClose);
+
+  const handleSubmit = () => {
+    try {
+      const data = formSchema.parse({ category });
+      console.log(data);
+    } catch (e) {
+      if (e instanceof z.ZodError) {
+        setError(e.errors[0].message);
+      }
+    }
+  };
+
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline">Add New Category</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Add New Category</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="category-name">
-                Category Name
-              </Label>
-              <Input className="col-span-3" id="category-name" placeholder="Enter category name" />
-            </div>
-          </div>
-          <DialogFooter>
-            <div>
-              <Button onClick={close} variant="outline">Cancel</Button>
-            </div>
-            <Button type="submit">Save</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white rounded-lg shadow-2xl p-6 m-4 max-w-md w-full">
+        <div className="flex justify-end mb-4">
+          <button
+            className="text-gray-700 hover:text-red-600"
+            onClick={close}
+          >
+            <XCircle />
+          </button>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Enter category..."
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
+          />
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+        </div>
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={close}
+            className="py-2 px-4 bg-gray-300 hover:bg-gray-400 text-black rounded-lg transition duration-200"
+          >
+            Close Modal
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-200"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
+
   )
-}
+};

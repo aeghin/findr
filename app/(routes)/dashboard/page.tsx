@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card"
 
 import { Montserrat } from 'next/font/google';
-import CategoryModal from '@/components/CategoryModal';
+import { CategoryModal } from '@/components/CategoryModal';
 
 const mont = Montserrat({ weight: '600', subsets: ['latin'] });
 
