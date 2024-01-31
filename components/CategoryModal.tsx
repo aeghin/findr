@@ -5,7 +5,7 @@ import { XCircle } from "lucide-react";
 import * as z from 'zod';
 
 import { useCreateCategory } from "@/store/create-cat-modal";
-
+import axios from "axios";
 import { useState } from "react";
 
 export const CategoryModal = () => {
@@ -22,11 +22,14 @@ export const CategoryModal = () => {
   });
 
   const close = useCreateCategory((state) => state.onClose);
-
-  const handleSubmit = () => {
+  const { onClose } = useCreateCategory();
+  
+  const handleSubmit = async () => {
     try {
       const data = formSchema.parse({ category });
-      console.log(data);
+      const response = await axios.post('/api/category', data);
+      onClose();
+      console.log(response);
     } catch (e) {
       if (e instanceof z.ZodError) {
         setError(e.errors[0].message);

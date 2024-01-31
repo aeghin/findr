@@ -33,12 +33,14 @@ export async function POST(req: Request) {
             });
         };
 
-        await prismadb.category.create({
+        const newCategory = await prismadb.category.create({
             data: {
                 name: category,
                 userId: user.id
             },
         });
+
+        return NextResponse.json(newCategory);
 
 
     } catch (error) {
