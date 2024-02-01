@@ -1,17 +1,17 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+
 import { XCircle } from "lucide-react";
 
 import * as z from 'zod';
 
 import { useCreateCategory } from "@/store/create-cat-modal";
-import axios from "axios";
 import { useState } from "react";
+import { useCategoryStore } from "@/store/create-cat-modal";
 
 export const CategoryModal = () => {
 
   const [category, setCategory] = useState('');
   const [error, setError] = useState('');
+  const { addCategory } = useCategoryStore();
 
   const formSchema = z.object({
     category: z.string().min(2, {
@@ -23,13 +23,12 @@ export const CategoryModal = () => {
 
   const close = useCreateCategory((state) => state.onClose);
   const { onClose } = useCreateCategory();
-  
+
   const handleSubmit = async () => {
     try {
       const data = formSchema.parse({ category });
-      const response = await axios.post('/api/category', data);
+      addCategory(data);
       onClose();
-      console.log(response);
     } catch (e) {
       if (e instanceof z.ZodError) {
         setError(e.errors[0].message);
