@@ -13,6 +13,7 @@ import {
 import { Montserrat } from 'next/font/google';
 import { CategoryModal } from '@/components/CategoryModal';
 import { useCategoryStore } from '@/store/create-cat-modal';
+import Link from 'next/link';
 
 const mont = Montserrat({ weight: '600', subsets: ['latin'] });
 
@@ -27,7 +28,7 @@ const DashboardPage = () => {
     useEffect(() => {
         fetchCategories();
     }, []);
-
+    console.log(categories);
 
     return (
         <>
@@ -46,11 +47,11 @@ const DashboardPage = () => {
                     </Card>
                 </div>
                 :
-                <div>
-                    {categories.map((category) => (
-                        <div key={category.id}>
-                            {category.name}
-                        </div>
+                <div className="grid grid-cols-1 gap-4">
+                    {categories.map(({ id, name }) => (
+                        <Link href={`/dashboard/category/${id}`}>
+                            {name}
+                        </Link>
                     ))}
                     <Button className='w-1/3' onClick={openModal}>
                         Create Category
