@@ -49,7 +49,7 @@ const DashboardPage = () => {
                 :
                 <div className="grid grid-cols-1 gap-4">
                     {categories.map(({ id, name }) => (
-                        <Link href={`/dashboard/category/${id}`}>
+                        <Link key={id} href={`/dashboard/category/${id}`}>
                             {name}
                         </Link>
                     ))}

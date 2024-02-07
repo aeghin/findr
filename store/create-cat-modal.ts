@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { Accounts, NewAccount, AccountState } from './types';
+
 
 
 interface Category {
@@ -56,4 +58,16 @@ export const useCategoryStore = create<CategoryState>((set) => ({
             console.error('failed to create category:', error);
         };
     },
+}));
+
+export const useAccountStore = create<AccountState>((set) => ({
+    accounts: [],
+    getAccounts: async (categoryId) => {
+        try {
+            const response = await axios.get<Accounts[]>(`/api/category/${categoryId}/accounts`);
+            set({ accounts: response.data });
+        } catch (error) {
+            console.error('failed to get accounts:', error);
+        };
+    }
 }));
