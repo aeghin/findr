@@ -24,7 +24,7 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
         });
 
         if (!category) {
-            return new NextResponse("uathorized access", { status: 401 });
+            return new NextResponse("unathorized access", { status: 401 });
         };
 
         const accounts = await prismadb.account.findMany({
