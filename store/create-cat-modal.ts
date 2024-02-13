@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import { Accounts, NewAccount, AccountState } from './types';
+import { Accounts, AccountState } from './types';
 
 
 
@@ -21,6 +21,13 @@ interface CreateCategory {
     onClose: () => void;
 };
 
+interface CreateAccount {
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
+};
+
+
 interface CategoryState {
     categories: Category[];
     fetchCategories: () => Promise<void>;
@@ -35,6 +42,16 @@ export const useCreateCategory = create<CreateCategory>((set) => ({
     }),
     onOpen: () => set({
         isOpen: true
+    }),
+}));
+
+export const useCreateAccount = create<CreateAccount>((set) => ({
+    isOpen: false,
+    onOpen: () => set({
+        isOpen: true
+    }),
+    onClose: () => set({
+        isOpen: false
     }),
 }));
 
@@ -69,5 +86,13 @@ export const useAccountStore = create<AccountState>((set) => ({
         } catch (error) {
             console.error('failed to get accounts:', error);
         };
-    }
+    },
+    addAccounts: async (categoryId, name) => {
+        try {
+            const response = await axios.post(`/api/category/${categoryId}/account`, name);
+            set((state) => ({ accounts: [ ...state.accounts, response.data ]}));
+        } catch (error) {
+            console.error('failed to get accounts:', error);
+        }
+    },
 }));

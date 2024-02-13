@@ -4,11 +4,8 @@ export interface Accounts {
     categoryId: number;
 };
 
-export interface NewAccount {
-    name: string;
-};
-
 export interface AccountState {
     accounts: Accounts[];
     getAccounts: (categoryId: string) => Promise<void>;
+    addAccounts: (categoryId: string, name: string) => Promise<void>;
 };

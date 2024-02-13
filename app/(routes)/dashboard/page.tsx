@@ -28,7 +28,7 @@ const DashboardPage = () => {
     useEffect(() => {
         fetchCategories();
     }, []);
-    console.log(categories);
+    // console.log(categories);
 
     return (
         <>
