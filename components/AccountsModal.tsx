@@ -6,7 +6,7 @@ import { XCircle } from "lucide-react";
 import { useCreateAccount, useAccountStore } from '@/store/create-cat-modal';
 
 
-export const AccountModal = () => {
+export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) => {
 
     const [account, setAccount] = useState('');
     const [error, setError] = useState('');
@@ -25,10 +25,13 @@ export const AccountModal = () => {
 
     const handleSubmit = async () => {
         try {
-            const accountName = formSchema.parse({ account });
-            addAccounts()
+            const { account: name } = formSchema.parse({ account });
+            addAccounts(categoryId, name);
+            onClose();
         } catch (e) {
-
+            if (e instanceof z.ZodError) {
+                setError(e.errors[0].message);
+            }
         };
     };
 

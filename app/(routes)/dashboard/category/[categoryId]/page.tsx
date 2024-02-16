@@ -1,12 +1,22 @@
 "use client";
 
-import { useAccountStore } from "@/store/create-cat-modal";
+import { useAccountStore, useCreateAccount } from "@/store/create-cat-modal";
+import { AccountModal } from "@/components/AccountsModal";
 import { useEffect } from "react";
 
-const CategoryPage = ({ params }: { params: { categoryId: string } }) => {
-    
-    const categoryId = params.categoryId;
+interface CategoryPageProps {
+    params: {
+      categoryId: string;
+    };
+  };
+  
+
+const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
+
+    const { categoryId } = params;
+
     const { accounts, getAccounts } = useAccountStore();
+    const { isOpen, onOpen } = useCreateAccount();
 
     useEffect(() => {
         getAccounts(categoryId);
@@ -15,6 +25,7 @@ const CategoryPage = ({ params }: { params: { categoryId: string } }) => {
     return (
         <>
             <div>Category info for {params.categoryId}</div>
+            <button onClick={onOpen}>Add Account</button>
             <div>
                 {accounts.map(({ id, name }) => (
                     <div key={id}>
@@ -22,6 +33,7 @@ const CategoryPage = ({ params }: { params: { categoryId: string } }) => {
                     </div>
                 ))}
             </div>
+            {isOpen && <AccountModal categoryId={categoryId} />}
         </>
     )
 };

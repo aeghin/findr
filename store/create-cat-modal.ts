@@ -89,7 +89,8 @@ export const useAccountStore = create<AccountState>((set) => ({
     },
     addAccounts: async (categoryId, name) => {
         try {
-            const response = await axios.post<Accounts>(`/api/category/${categoryId}/account`, name);
+            const response = await axios.post<Accounts>(`/api/category/${categoryId}/account`, { name: name });
+            // console.log(name);
             set((state) => ({ accounts: [...state.accounts, response.data] }));
         } catch (error) {
             console.error('failed to add account(s):', error);

@@ -21,8 +21,9 @@ export const CategoryModal = () => {
     }),
   });
 
-  const close = useCreateCategory((state) => state.onClose);
   const { onClose } = useCreateCategory();
+  
+  const close = useCreateCategory((state) => state.onClose);
 
   const handleSubmit = async () => {
     try {
