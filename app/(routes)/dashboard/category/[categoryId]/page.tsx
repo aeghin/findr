@@ -3,13 +3,14 @@
 import { useAccountStore, useCreateAccount } from "@/store/create-cat-modal";
 import { AccountModal } from "@/components/AccountsModal";
 import { useEffect } from "react";
+import Link from "next/link";
 
 interface CategoryPageProps {
     params: {
-      categoryId: string;
+        categoryId: string;
     };
-  };
-  
+};
+
 
 const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 
@@ -28,9 +29,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
             <button onClick={onOpen}>Add Account</button>
             <div>
                 {accounts.map(({ id, name }) => (
-                    <div key={id}>
+                    <Link href={`/dashboard/category/${categoryId}/accounts/${id}`} className="flex">
                         {name}
-                    </div>
+                    </Link>
                 ))}
             </div>
             {isOpen && <AccountModal categoryId={categoryId} />}
