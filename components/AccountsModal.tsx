@@ -14,7 +14,6 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
         account: '',
         instagram: '',
         x: '',
-        url: '',
     });
 
 
@@ -30,8 +29,8 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
             }).max(12,
                 { message: "account name cannot be longer than 12 characters" }
             ),
-        platform: z.string(),
-        url: z.string().url()
+        instagram: z.string().url(),
+        x: z.string().url()
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +42,7 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
 
     const handleSubmit = async () => {
         try {
-            const { account: name } = formSchema.parse({ account });
+            const { account: name } = formSchema.parse({ accountDetails });
             addAccounts(categoryId, name);
             onClose();
         } catch (e) {
@@ -66,21 +65,21 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                 </div>
                 <div>
                     <input
-                        type="text"
+                        type='text'
                         placeholder="account name"
                         value={accountDetails.account}
                         onChange={handleChange}
                         className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                     />
                     <input
-                        type="text"
+                        type="url"
                         placeholder="instagram url"
                         value={accountDetails.instagram}
                         onChange={handleChange}
                         className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                     />
                     <input
-                        type="text"
+                        type="url"
                         placeholder="x/twitter url"
                         value={accountDetails.x}
                         onChange={handleChange}
