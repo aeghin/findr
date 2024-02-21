@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { XCircle } from "lucide-react";
 
+
 import { useCreateAccount, useAccountStore } from '@/store/create-cat-modal';
 
 
@@ -11,9 +12,9 @@ import { useCreateAccount, useAccountStore } from '@/store/create-cat-modal';
 export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) => {
 
     const [accountDetails, setAccountDetails] = useState({
-        account: '',
-        instagram: '',
-        x: '',
+        accountName: '',
+        instagramUrl: '',
+        xUrl: '',
     });
 
 
@@ -23,14 +24,14 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
     const { addAccounts } = useAccountStore();
 
     const formSchema = z.object({
-        account: z.string().min(2,
+        accountName: z.string().min(2,
             {
                 message: "account name must be atleast 2 characters long"
             }).max(12,
                 { message: "account name cannot be longer than 12 characters" }
             ),
-        instagram: z.string().url(),
-        x: z.string().url()
+        instagramUrl: z.string().url(),
+        xUrl: z.string().url()
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,8 +43,8 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
 
     const handleSubmit = async () => {
         try {
-            const { account: name } = formSchema.parse({ accountDetails });
-            addAccounts(categoryId, name);
+            const { accountName, instagramUrl, xUrl } = formSchema.parse({ accountDetails });
+            addAccounts(categoryId, accountName, instagramUrl, xUrl);
             onClose();
         } catch (e) {
             if (e instanceof z.ZodError) {
@@ -63,25 +64,25 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                         <XCircle />
                     </button>
                 </div>
-                <div>
+                <div className='space-y-2'>
                     <input
                         type='text'
                         placeholder="account name"
-                        value={accountDetails.account}
+                        value={accountDetails.accountName}
                         onChange={handleChange}
                         className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                     />
                     <input
                         type="url"
                         placeholder="instagram url"
-                        value={accountDetails.instagram}
+                        value={accountDetails.instagramUrl}
                         onChange={handleChange}
                         className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                     />
                     <input
                         type="url"
                         placeholder="x/twitter url"
-                        value={accountDetails.x}
+                        value={accountDetails.xUrl}
                         onChange={handleChange}
                         className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                     />

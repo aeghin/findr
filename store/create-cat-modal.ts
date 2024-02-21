@@ -87,9 +87,9 @@ export const useAccountStore = create<AccountState>((set) => ({
             console.error('failed to get accounts:', error);
         };
     },
-    addAccounts: async (categoryId, name) => {
+    addAccounts: async (categoryId, accountName, instagramUrl, xUrl) => {
         try {
-            const response = await axios.post<Accounts>(`/api/category/${categoryId}/account`, { name: name });
+            const response = await axios.post<Accounts>(`/api/category/${categoryId}/account`, { accountName, instagramUrl, xUrl });
             // console.log(name);
             set((state) => ({ accounts: [...state.accounts, response.data] }));
         } catch (error) {

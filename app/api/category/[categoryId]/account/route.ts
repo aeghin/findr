@@ -7,13 +7,13 @@ export async function POST(req: Request, { params }: { params: { categoryId: str
 
         const { userId } = auth();
         const body = await req.json();
-        const { name } = body;
+        const { accountName, instagramUrl, xUrl } = body;
 
         if (!userId) {
             return new NextResponse("unauthorized user", { status: 401 });
         };
 
-        if (!name) {
+        if (!accountName) {
             return new NextResponse("account name needed", { status: 400 });
         };
 
@@ -38,7 +38,7 @@ export async function POST(req: Request, { params }: { params: { categoryId: str
 
         const newAccount = await prismadb.account.create({
             data: {
-                name: name,
+                name: accountName,
                 categoryId: categoriesId,
             },
         });
