@@ -1,4 +1,5 @@
 import * as z from 'zod';
+
 import { useState } from 'react';
 
 import { XCircle } from "lucide-react";
@@ -6,9 +7,17 @@ import { XCircle } from "lucide-react";
 import { useCreateAccount, useAccountStore } from '@/store/create-cat-modal';
 
 
+
 export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) => {
 
-    const [account, setAccount] = useState('');
+    const [accountDetails, setAccountDetails] = useState({
+        account: '',
+        instagram: '',
+        x: '',
+        url: '',
+    });
+
+
     const [error, setError] = useState('');
 
     const { onClose } = useCreateAccount();
@@ -20,8 +29,17 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                 message: "account name must be atleast 2 characters long"
             }).max(12,
                 { message: "account name cannot be longer than 12 characters" }
-            )
+            ),
+        platform: z.string(),
+        url: z.string().url()
     });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const { name, value } = e.target;
+
+        setAccountDetails(prevState => ({ ...prevState, [name]: value }));
+    }
 
     const handleSubmit = async () => {
         try {
@@ -49,9 +67,23 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                 <div>
                     <input
                         type="text"
-                        placeholder="Enter account..."
-                        value={account}
-                        onChange={e => setAccount(e.target.value)}
+                        placeholder="account name"
+                        value={accountDetails.account}
+                        onChange={handleChange}
+                        className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
+                    />
+                    <input
+                        type="text"
+                        placeholder="instagram url"
+                        value={accountDetails.instagram}
+                        onChange={handleChange}
+                        className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
+                    />
+                    <input
+                        type="text"
+                        placeholder="x/twitter url"
+                        value={accountDetails.x}
+                        onChange={handleChange}
                         className="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                     />
                     {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
