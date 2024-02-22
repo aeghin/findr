@@ -29,7 +29,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
             <button onClick={onOpen}>Add Account</button>
             <div>
                 {accounts.map(({ id, name }) => (
-                    <Link href={`/dashboard/category/${categoryId}/accounts/${id}`} className="flex">
+                    <Link key={id} href={`/dashboard/category/${categoryId}/accounts/${id}`} className="flex">
                         {name}
                     </Link>
                 ))}

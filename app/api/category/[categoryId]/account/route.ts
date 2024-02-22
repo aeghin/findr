@@ -17,6 +17,14 @@ export async function POST(req: Request, { params }: { params: { categoryId: str
             return new NextResponse("account name needed", { status: 400 });
         };
 
+        if (!instagramUrl) {
+            return new NextResponse("please enter correct instagram url", { status: 400 });
+        };
+
+        if (!xUrl) {
+            return new NextResponse("please enter correct x/twitter url", { status: 400 });
+        };
+
         const categoriesId = parseInt(params.categoryId, 10);
 
         const user = await prismadb.user.findUnique({
@@ -40,6 +48,12 @@ export async function POST(req: Request, { params }: { params: { categoryId: str
             data: {
                 name: accountName,
                 categoryId: categoriesId,
+                links: {
+                    create: [
+                        { platform: 'Instagram', url: instagramUrl },
+                        { platform: 'Twitter', url: xUrl },
+                    ],
+                },
             },
         });
 

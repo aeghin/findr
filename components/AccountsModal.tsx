@@ -43,7 +43,7 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
 
     const handleSubmit = async () => {
         try {
-            const { accountName, instagramUrl, xUrl } = formSchema.parse({ accountDetails });
+            const { accountName, instagramUrl, xUrl } = formSchema.parse(accountDetails);
             addAccounts(categoryId, accountName, instagramUrl, xUrl);
             onClose();
         } catch (e) {
@@ -67,6 +67,7 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                 <div className='space-y-2'>
                     <input
                         type='text'
+                        name='accountName'
                         placeholder="account name"
                         value={accountDetails.accountName}
                         onChange={handleChange}
@@ -74,6 +75,7 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                     />
                     <input
                         type="url"
+                        name='instagramUrl'
                         placeholder="instagram url"
                         value={accountDetails.instagramUrl}
                         onChange={handleChange}
@@ -81,6 +83,7 @@ export const AccountModal: React.FC<{ categoryId: string }> = ({ categoryId }) =
                     />
                     <input
                         type="url"
+                        name='xUrl'
                         placeholder="x/twitter url"
                         value={accountDetails.xUrl}
                         onChange={handleChange}
