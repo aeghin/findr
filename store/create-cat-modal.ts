@@ -30,6 +30,7 @@ interface CreateAccount {
 
 interface CategoryState {
     categories: Category[];
+    isLoading: boolean;
     fetchCategories: () => Promise<void>;
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
 };
@@ -57,12 +58,16 @@ export const useCreateAccount = create<CreateAccount>((set) => ({
 
 export const useCategoryStore = create<CategoryState>((set) => ({
     categories: [],
+    isLoading: false,
     fetchCategories: async () => {
+        set({ isLoading: true });
         try {
             const response = await axios.get<Category[]>('/api/category/categories');
             set({ categories: response.data });
         } catch (error) {
             console.error('failed to fetch categories:', error);
+        } finally {
+            set({ isLoading: false });
         };
     },
 

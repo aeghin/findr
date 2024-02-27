@@ -3,6 +3,7 @@
 import { useCreateCategory } from '@/store/create-cat-modal';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from "@/components/ui/skeleton";
 import {
     Card,
     CardDescription,
@@ -19,7 +20,7 @@ const mont = Montserrat({ weight: '600', subsets: ['latin'] });
 
 const DashboardPage = () => {
 
-    const { fetchCategories, categories } = useCategoryStore();
+    const { fetchCategories, categories, isLoading } = useCategoryStore();
     const isOpen = useCreateCategory((state) => state.isOpen);
     const openModal = useCreateCategory((state) => state.onOpen);
 
@@ -32,7 +33,15 @@ const DashboardPage = () => {
 
     return (
         <>
-            {categories.length === 0 ?
+            {isLoading ? (
+                <div className="space-y-2">
+                    <Skeleton className="h-10 w-1/4 rounded-md" />
+                    <Skeleton className="h-10 w-1/4 rounded-md" />
+                    <Skeleton className="h-10 w-1/4 rounded-md" />
+                    <Skeleton className="h-10 w-1/4 rounded-md" />
+                    <Skeleton className="h-10 w-1/4 rounded-md" />
+                </div>
+            ) : categories.length === 0 ?
                 <div className='flex flex-col justify-center items-center min-h-screen'>
                     <Card className='w-1/2 h-96 bg-gray-100 mb-36'>
                         <CardHeader>
