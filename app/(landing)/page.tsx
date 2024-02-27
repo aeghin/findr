@@ -5,9 +5,10 @@ const LandingPage = () => {
     return (
         <>
             <div className="h-full">Landing Page (public)</div>
-            <div className="flex">
+            <div className="flex space-x-4">
                 <SignInButton />
                 <SignUpButton />
+
             </div>
 
         </>
