@@ -34,12 +34,17 @@ const DashboardPage = () => {
     return (
         <>
             {isLoading ? (
-                <div className="space-y-2">
-                    <Skeleton className="h-10 w-1/4 rounded-md" />
-                    <Skeleton className="h-10 w-1/4 rounded-md" />
-                    <Skeleton className="h-10 w-1/4 rounded-md" />
-                    <Skeleton className="h-10 w-1/4 rounded-md" />
-                    <Skeleton className="h-10 w-1/4 rounded-md" />
+                <div className="p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                        <Skeleton className="h-28 w-full rounded-lg" />
+                    </div>
                 </div>
             ) : categories.length === 0 ?
                 <div className='flex flex-col justify-center items-center min-h-screen'>
@@ -56,13 +61,15 @@ const DashboardPage = () => {
                     </Card>
                 </div>
                 :
-                <div className="grid grid-cols-1 gap-4">
-                    {categories.map(({ id, name }) => (
-                        <Link key={id} href={`/dashboard/category/${id}`}>
-                            {name}
-                        </Link>
-                    ))}
-                    <Button className='w-1/3' onClick={openModal}>
+                <div className="p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {categories.map(({ id, name }) => (
+                            <Link key={id} href={`/dashboard/category/${id}`} className="group flex flex-col items-center justify-center p-6 text-center bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-color transition-shadow duration-200 ease-in-out">
+                                <h5 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{name}</h5>
+                            </Link>
+                        ))}
+                    </div>
+                    <Button className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={openModal}>
                         Create Category
                     </Button>
                 </div>
