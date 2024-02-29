@@ -7,7 +7,7 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
     try {
 
         const { userId } = auth();
-        
+
         const categoryId = parseInt(params.categoryId, 10);
         // console.log('This is what paramms.categoryId is coming in as on the api:',params.categoryId);
         if (!userId) {
@@ -30,13 +30,20 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
         const accounts = await prismadb.account.findMany({
             where: {
                 categoryId: categoryId
+            },
+            include: {
+                category: {
+                    select: {
+                        name: true
+                    }
+                }
             }
         });
 
         return NextResponse.json(accounts);
 
     } catch (error) {
-        
+
         console.log("code error", error);
         return new NextResponse("internal error", { status: 500 });
     }

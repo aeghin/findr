@@ -16,17 +16,18 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 
     const { categoryId } = params;
 
-    const { accounts, getAccounts } = useAccountStore();
+    const { accounts, getAccounts, categoryName } = useAccountStore();
     const { isOpen, onOpen } = useCreateAccount();
 
     useEffect(() => {
         getAccounts(categoryId);
     }, []);
 
+
     return (
         <div className="p-4">
             <div className="mb-4">
-                <h1 className="text-xl font-semibold">Category info for {categoryId}</h1>
+                <h1 className="text-xl font-semibold">{categoryName}</h1>
                 <button onClick={onOpen} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300">
                     Add Account
                 </button>
