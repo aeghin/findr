@@ -85,14 +85,15 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 export const useAccountStore = create<AccountState>((set) => ({
     accounts: [],
     categoryName: '',
+    accountDetails: {},
     getAccounts: async (categoryId) => {
         try {
             const response = await axios.get<Accounts[]>(`/api/category/${categoryId}/accounts`);
-        
+
             set({ accounts: response.data, categoryName: response.data[0]?.category.name });
 
         } catch (error) {
-            
+
             console.error('failed to get accounts:', error);
         };
     },
@@ -103,6 +104,14 @@ export const useAccountStore = create<AccountState>((set) => ({
             set((state) => ({ accounts: [...state.accounts, response.data] }));
         } catch (error) {
             console.error('failed to add account(s):', error);
+        };
+    },
+    getAccountDetails: async (accountId, categoryId) => {
+        try {
+            const response = await axios.get(`/api/category/${categoryId}/${accountId}/details`);
+            console.log(response.data);
+        } catch (error) {
+            console.error('failed to get account detail(s)', error);
         };
     },
 }));

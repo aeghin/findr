@@ -1,3 +1,8 @@
+'use client'
+
+import { useEffect } from "react";
+import { useAccountStore } from "@/store/create-cat-modal";
+
 type AccountsParams = {
     params: {
         categoryId: string;
@@ -8,14 +13,17 @@ type AccountsParams = {
 const AccountsPage = ({ params }: AccountsParams) => {
 
     const { categoryId, accountId } = params;
+    const { getAccountDetails } = useAccountStore();
 
+    useEffect(() => {
+        getAccountDetails(accountId, categoryId);
+    }, []);
 
-
-return (
-    <div>
-        Account page for account #{accountId}
-    </div>
-)
+    return (
+        <div>
+            Account page for account #{accountId}
+        </div>
+    )
 
 };
 

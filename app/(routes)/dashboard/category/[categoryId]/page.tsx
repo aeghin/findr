@@ -20,7 +20,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
     const { isOpen, onOpen } = useCreateAccount();
 
     useEffect(() => {
+
         getAccounts(categoryId);
+        
     }, []);
 
 
