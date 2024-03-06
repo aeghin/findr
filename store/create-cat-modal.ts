@@ -35,6 +35,21 @@ interface CategoryState {
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
 };
 
+interface Link {
+    id: number;
+    platform: string;
+    url: string;
+    accountId: number;
+};
+
+
+export interface AccountDetails {
+    id: number;
+    name: string;
+    categoryId: number;
+    links: Link[];
+};
+
 
 export const useCreateCategory = create<CreateCategory>((set) => ({
     isOpen: false,
@@ -108,7 +123,7 @@ export const useAccountStore = create<AccountState>((set) => ({
     },
     getAccountDetails: async (accountId, categoryId) => {
         try {
-            const response = await axios.get(`/api/category/${categoryId}/${accountId}/details`);
+            const response = await axios.get<AccountDetails>(`/api/category/${categoryId}/${accountId}/details`);
             set((state) => ({ accountDetails: { ...state.accountDetails, [accountId]: response.data.links } }));
         } catch (error) {
             console.error('failed to get account detail(s)', error);

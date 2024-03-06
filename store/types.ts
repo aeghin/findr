@@ -1,3 +1,6 @@
+import { AccountDetails } from "./create-cat-modal";
+
+
 export interface Accounts {
     id: number;
     name: string;
@@ -7,10 +10,12 @@ export interface Accounts {
     }
 };
 
+type AccountDetailsType = { [key: number]: AccountDetails };
+
 export interface AccountState {
     accounts: Accounts[];
     categoryName: string;
-    accountDetails: any;
+    accountDetails: AccountDetailsType;
     getAccounts: (categoryId: string) => Promise<void>;
     addAccounts: (categoryId: string, accountName: string, instaUrl: string, xUrl: string) => Promise<void>;
     getAccountDetails: (categoryId: string, accountId: string) => Promise<void>;
