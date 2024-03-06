@@ -101,16 +101,19 @@ export const useAccountStore = create<AccountState>((set) => ({
     accounts: [],
     categoryName: '',
     accountDetails: {},
+    isLoading: false,
     getAccounts: async (categoryId) => {
         try {
+            set({ isLoading: true });
             const response = await axios.get<Accounts[]>(`/api/category/${categoryId}/accounts`);
 
             set({ accounts: response.data, categoryName: response.data[0]?.category.name });
 
         } catch (error) {
-
             console.error('failed to get accounts:', error);
-        };
+        } finally {
+            set({ isLoading: false });
+        }
     },
     addAccounts: async (categoryId, accountName, instagramUrl, xUrl) => {
         try {

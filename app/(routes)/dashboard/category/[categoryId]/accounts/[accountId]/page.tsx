@@ -22,6 +22,7 @@ const AccountsPage = ({ params }: AccountsParams) => {
     return (
         <div>
             Account page for account #{accountId}
+            
         </div>
     )
 
