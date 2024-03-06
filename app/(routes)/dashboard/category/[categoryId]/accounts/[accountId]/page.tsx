@@ -13,12 +13,12 @@ type AccountsParams = {
 const AccountsPage = ({ params }: AccountsParams) => {
 
     const { categoryId, accountId } = params;
-    const { getAccountDetails } = useAccountStore();
+    const { getAccountDetails, accountDetails } = useAccountStore();
 
     useEffect(() => {
         getAccountDetails(accountId, categoryId);
-    }, []);
-
+    }, [accountId, categoryId]);
+    // console.log(accountDetails[accountId].map((link) => link.platform));
     return (
         <div>
             Account page for account #{accountId}

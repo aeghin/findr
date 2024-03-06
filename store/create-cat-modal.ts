@@ -109,7 +109,7 @@ export const useAccountStore = create<AccountState>((set) => ({
     getAccountDetails: async (accountId, categoryId) => {
         try {
             const response = await axios.get(`/api/category/${categoryId}/${accountId}/details`);
-            console.log(response.data);
+            set((state) => ({ accountDetails: { ...state.accountDetails, [accountId]: response.data.links } }));
         } catch (error) {
             console.error('failed to get account detail(s)', error);
         };
