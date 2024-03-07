@@ -23,14 +23,13 @@ const AccountsPage = ({ params }: AccountsParams) => {
 
     const details = accountDetails[accountId];
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-4">Account Details for Account #{accountId}</h2>
-            <div className="space-y-2">
+        <div className="p-4 md:pd-8 lg:p-12">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4">Account Details for Account #{accountId}</h2>
+            <div className="space-y-2 lg:space-y-4">
                 {details?.map(({ id, url, platform }) => (
-                    <a key={id} href={url} target="_blank" rel="noopener noreferrer" className="block p-4 bg-white rounded shadow hover:bg-gray-50 transition duration-300 ease-in-out">
-                        <SocialIcon network={`${platform.toLowerCase()}`} as="div" />
-                        <div className="font-medium text-lg">{platform}</div>
-                        <div className="text-gray-600">Visit on {platform}</div>
+                    <a key={id} href={url} target="_blank" rel="noopener noreferrer" className="flex justify-center items-center lg:block lg:w-full p-4 md:p-6 lg:p-8 lg:shadow-lg bg-white rounded shadow hover:bg-gray-50 transition duration-300 ease-in-out">
+                        <SocialIcon className="lg:ml-4" network={`${platform.toLowerCase()}`} as="div" />
+                        <div className="font-medium text-lg ml-2 lg:text-xl">{platform}</div>
                     </a>
                 ))}
             </div>
