@@ -1,4 +1,4 @@
-import { AccountDetails } from "./create-cat-modal";
+import { AccountDetails, Link } from "./create-cat-modal";
 
 
 export interface Accounts {
@@ -10,7 +10,7 @@ export interface Accounts {
     }
 };
 
-type AccountDetailsType = { [key: number]: AccountDetails };
+type AccountDetailsType = { [key: string]: Link[] };
 
 export interface AccountState {
     accounts: Accounts[];

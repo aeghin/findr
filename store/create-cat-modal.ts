@@ -35,7 +35,7 @@ interface CategoryState {
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
 };
 
-interface Link {
+export interface Link {
     id: number;
     platform: string;
     url: string;
