@@ -62,6 +62,11 @@ const DashboardPage = () => {
                 </div>
                 :
                 <div className="p-4">
+                    <div className='flex justify-end'>
+                        <Button className="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={openModal}>
+                            Create Category
+                        </Button>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {categories.map(({ id, name }) => (
                             <Link key={id} href={`/dashboard/category/${id}`} className="group flex flex-col items-center justify-center p-6 text-center bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-color transition-shadow duration-200 ease-in-out">
@@ -69,9 +74,6 @@ const DashboardPage = () => {
                             </Link>
                         ))}
                     </div>
-                    <Button className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={openModal}>
-                        Create Category
-                    </Button>
                 </div>
             }
             {
