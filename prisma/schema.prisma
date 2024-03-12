@@ -28,7 +28,7 @@ model Account {
   id         Int      @id @default(autoincrement())
   name       String
   categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   links      Link[]
 
   @@index([categoryId])
@@ -39,7 +39,7 @@ model Link {
   platform  String
   url       String
   accountId Int
-  account   Account @relation(fields: [accountId], references: [id])
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@index([accountId])
 }
