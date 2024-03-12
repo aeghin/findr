@@ -102,6 +102,7 @@ export const useAccountStore = create<AccountState>((set) => ({
     categoryName: '',
     accountDetails: {},
     isLoading: false,
+    isFetching: false,
     getAccounts: async (categoryId) => {
         try {
             set({ isLoading: true });
@@ -126,10 +127,13 @@ export const useAccountStore = create<AccountState>((set) => ({
     },
     getAccountDetails: async (accountId, categoryId) => {
         try {
+            set({ isFetching: true });
             const response = await axios.get<AccountDetails>(`/api/category/${categoryId}/${accountId}/details`);
             set((state) => ({ accountDetails: { ...state.accountDetails, [accountId]: response.data.links } }));
         } catch (error) {
             console.error('failed to get account detail(s)', error);
-        };
+        } finally {
+            set({ isFetching: false });
+        }
     },
 }));
