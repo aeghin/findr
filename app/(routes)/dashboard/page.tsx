@@ -9,18 +9,20 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
+
+import { CategoryCard } from '@/components/CategoryCard';
 
 import { Montserrat } from 'next/font/google';
 import { CategoryModal } from '@/components/CategoryModal';
 import { useCategoryStore } from '@/store/create-cat-modal';
-import Link from 'next/link';
+
 
 const mont = Montserrat({ weight: '600', subsets: ['latin'] });
 
 const DashboardPage = () => {
 
-    const { fetchCategories, categories, isLoading } = useCategoryStore();
+    const { fetchCategories, categories, isLoading, deleteCategory } = useCategoryStore();
     const isOpen = useCreateCategory((state) => state.isOpen);
     const openModal = useCreateCategory((state) => state.onOpen);
 
@@ -69,9 +71,7 @@ const DashboardPage = () => {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {categories.map(({ id, name }) => (
-                            <Link key={id} href={`/dashboard/category/${id}`} className="group flex flex-col items-center justify-center p-6 text-center bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-color transition-shadow duration-200 ease-in-out">
-                                <h5 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{name}</h5>
-                            </Link>
+                            <CategoryCard key={id} id={id} name={name} />
                         ))}
                     </div>
                 </div>
