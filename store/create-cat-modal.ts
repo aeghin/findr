@@ -33,7 +33,7 @@ interface CategoryState {
     isLoading: boolean;
     fetchCategories: () => Promise<void>;
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
-    deleteCategory: (categoryId: string, accountId: string) => Promise<void>;
+    deleteCategory: (categoryId: string) => Promise<void>;
 };
 
 export interface Link {
@@ -96,10 +96,10 @@ export const useCategoryStore = create<CategoryState>((set) => ({
             console.error('failed to create category:', error);
         };
     },
-    deleteCategory: async (categoryId, accountId) => {
+    deleteCategory: async (categoryId) => {
         try {
 
-            await axios.delete(`api/category/${categoryId}/${accountId}/deleteCategory`);
+            await axios.delete(`api/category/${categoryId}/deleteCategory`);
 
             const categoryIdNum = Number(categoryId);
 
