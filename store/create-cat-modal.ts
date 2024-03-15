@@ -31,6 +31,7 @@ interface CreateAccount {
 interface CategoryState {
     categories: Category[];
     isLoading: boolean;
+    message: string;
     fetchCategories: () => Promise<void>;
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
     deleteCategory: (categoryId: string) => Promise<void>;
@@ -75,6 +76,7 @@ export const useCreateAccount = create<CreateAccount>((set) => ({
 export const useCategoryStore = create<CategoryState>((set) => ({
     categories: [],
     isLoading: false,
+    message: "",
     fetchCategories: async () => {
         set({ isLoading: true });
         try {
@@ -98,14 +100,16 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     },
     deleteCategory: async (categoryId) => {
         try {
-
-            await axios.delete(`api/category/${categoryId}/deleteCategory`);
+            set({ message: "" });
+            const response = await axios.delete(`api/category/${categoryId}/deleteCategory`);
+            set({ message: response.data.message });
 
             const categoryIdNum = Number(categoryId);
 
             set(state => ({
                 categories: state.categories.filter(category => category.id !== categoryIdNum)
             }));
+
 
         } catch (error) {
             console.error(`failed to delete category: ${categoryId}`, error);
