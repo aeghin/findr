@@ -32,9 +32,12 @@ interface CategoryState {
     categories: Category[];
     isLoading: boolean;
     message: string;
+    isDelete: boolean;
     fetchCategories: () => Promise<void>;
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
     deleteCategory: (categoryId: string) => Promise<void>;
+    confirmDelete: () => void;
+    closeModal: () => void;
 };
 
 export interface Link {
@@ -77,6 +80,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     categories: [],
     isLoading: false,
     message: "",
+    isDelete: false,
     fetchCategories: async () => {
         set({ isLoading: true });
         try {
@@ -114,6 +118,12 @@ export const useCategoryStore = create<CategoryState>((set) => ({
         } catch (error) {
             console.error(`failed to delete category: ${categoryId}`, error);
         };
+    },
+    confirmDelete: async () => {
+        set({ isDelete: true });
+    },
+    closeModal: async () => {
+        set({ isDelete: false });
     },
 }));
 
