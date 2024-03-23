@@ -16,8 +16,7 @@ import { CategoryCard } from '@/components/CategoryCard';
 import { Montserrat } from 'next/font/google';
 import { CategoryModal } from '@/components/CategoryModal';
 import { useCategoryStore } from '@/store/create-cat-modal';
-import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
-import { toast } from 'sonner';
+
 
 
 const mont = Montserrat({ weight: '600', subsets: ['latin'] });
