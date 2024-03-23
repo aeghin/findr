@@ -31,7 +31,6 @@ interface CreateAccount {
 interface CategoryState {
     categories: Category[];
     isLoading: boolean;
-    message: string;
     isDelete: boolean;
     fetchCategories: () => Promise<void>;
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
@@ -79,7 +78,6 @@ export const useCreateAccount = create<CreateAccount>((set) => ({
 export const useCategoryStore = create<CategoryState>((set) => ({
     categories: [],
     isLoading: false,
-    message: "",
     isDelete: false,
     fetchCategories: async () => {
         set({ isLoading: true });
@@ -104,9 +102,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     },
     deleteCategory: async (categoryId) => {
         try {
-            set({ message: "" });
-            const response = await axios.delete(`api/category/${categoryId}/deleteCategory`);
-            set({ message: response.data.message });
+            
+            await axios.delete(`api/category/${categoryId}/deleteCategory`);
 
             const categoryIdNum = Number(categoryId);
 

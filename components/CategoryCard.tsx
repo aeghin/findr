@@ -11,13 +11,13 @@ interface Props {
 
 export const CategoryCard = ({ id, name }: Props) => {
 
-    const { deleteCategory, message, confirmDelete, isDelete, closeModal } = useCategoryStore();
+    const { deleteCategory, confirmDelete, isDelete, closeModal } = useCategoryStore();
     const categoryId = id.toString();
 
 
     const handleDelete = () => {
-        toast.success(message);
         deleteCategory(categoryId);
+        toast.success(`${name} category deleted`);
         closeModal();
     };
 
