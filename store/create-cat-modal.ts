@@ -120,7 +120,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     renameCategory: async (categoryId: any, categoryName: any) => {
         try {
             
-            const renamedCategory = await axios.put(`api/category/${categoryId}/editCategory`, { categoryName: categoryName });
+            const renamedCategory = await axios.put(`api/category/${categoryId}/editCategory`, { categoryName });
             set(state => ({
                 categories: state.categories.map(category => {
                     if (category.id === categoryId) {
@@ -132,7 +132,10 @@ export const useCategoryStore = create<CategoryState>((set) => ({
             }));
         } catch (err) {
             return console.log("error in renaming category");
-        }
+        };
+    },
+    findCategorybyId: (id: string) => {
+
     },
     confirmDelete: async () => {
         set({ isDelete: true });
