@@ -35,6 +35,7 @@ interface CategoryState {
     fetchCategories: () => Promise<void>;
     addCategory: (newCategory: NewCategoryData) => Promise<void>;
     deleteCategory: (categoryId: string) => Promise<void>;
+    renameCategory: (categoryId: any, categoryName: any) => Promise<void>;
     confirmDelete: () => void;
     closeModal: () => void;
 };
@@ -102,7 +103,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     },
     deleteCategory: async (categoryId) => {
         try {
-            
+
             await axios.delete(`api/category/${categoryId}/deleteCategory`);
 
             const categoryIdNum = Number(categoryId);
@@ -115,6 +116,23 @@ export const useCategoryStore = create<CategoryState>((set) => ({
         } catch (error) {
             console.error(`failed to delete category: ${categoryId}`, error);
         };
+    },
+    renameCategory: async (categoryId: any, categoryName: any) => {
+        try {
+            
+            const renamedCategory = await axios.put(`api/category/${categoryId}/editCategory`, { categoryName: categoryName });
+            set(state => ({
+                categories: state.categories.map(category => {
+                    if (category.id === categoryId) {
+                        return { ...category, name: renamedCategory.data.name };
+                    } else {
+                        return category;
+                    };
+                })
+            }));
+        } catch (err) {
+            return console.log("error in renaming category");
+        }
     },
     confirmDelete: async () => {
         set({ isDelete: true });
