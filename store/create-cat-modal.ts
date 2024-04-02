@@ -134,9 +134,6 @@ export const useCategoryStore = create<CategoryState>((set) => ({
             return console.log("error in renaming category");
         };
     },
-    findCategorybyId: (id: string) => {
-
-    },
     confirmDelete: async () => {
         set({ isDelete: true });
     },

@@ -71,8 +71,8 @@ const DashboardPage = () => {
                         </Button>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {categories.map(({ id, name }) => (
-                            <CategoryCard key={id} id={id} name={name} />
+                        {categories.map(({ id }) => (
+                            <CategoryCard key={id} id={id} />
                         ))}
                     </div>
                 </div>

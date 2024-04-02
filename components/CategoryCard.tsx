@@ -5,40 +5,37 @@ import { useCategoryStore } from '@/store/create-cat-modal';
 import { toast } from 'sonner';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { useState } from "react";
+import { EditCatModal } from './EditCatModal';
 
 
 
 interface Props {
     id: number;
-    name: string;
 };
 
-export const CategoryCard = ({ id, name }: Props) => {
+export const CategoryCard = ({ id }: Props) => {
 
-    const { deleteCategory, confirmDelete, isDelete, closeModal, renameCategory } = useCategoryStore();
+    const { deleteCategory, confirmDelete, isDelete, closeModal } = useCategoryStore();
     const categoryId = id.toString();
 
-    
+    const categoryName = useCategoryStore(state => state.categories.find(cat => cat.id === id));
+
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleDelete = () => {
         deleteCategory(categoryId);
-        toast.success(`${name} category deleted`);
+        toast.success(`${categoryName?.name} category deleted`);
         closeModal();
-    };
-
-    const handleEdit = () => {
-        renameCategory(categoryId, "test");
-        toast.success("category renamed");
     };
 
     return (
         <>
             <div className="group flex items-center justify-between p-6 text-center bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-color transition-shadow duration-200 ease-in-out">
                 <Link href={`/dashboard/category/${id}`}>
-                    <h5 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{name}</h5>
+                    <h5 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{categoryName?.name}</h5>
                 </Link>
                 <div className='grid'>
-                    <button onClick={handleEdit} className='mb-2 transition duration-200 ease-in-out transform hover:scale-110 hover:text-blue-700'>
+                    <button onClick={() => setIsOpen(true)} className='mb-2 transition duration-200 ease-in-out transform hover:scale-110 hover:text-blue-700'>
                         <Pencil />
                     </button>
                     <button onClick={confirmDelete} className="transition duration-200 ease-in-out transform hover:scale-110 hover:text-red-600">
@@ -47,6 +44,7 @@ export const CategoryCard = ({ id, name }: Props) => {
                 </div>
             </div>
             {isDelete && <ConfirmDeleteModal handleDelete={handleDelete} />}
+            {isOpen && <EditCatModal id={id} categoryName={categoryName?.name} onClose={() => setIsOpen(false)} />}
         </>
     )
 };

@@ -39,7 +39,7 @@ export const CategoryModal = () => {
 
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+   <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-2xl p-6 m-4 max-w-md w-full">
         <div className="flex justify-end mb-4">
           <button
@@ -75,6 +75,6 @@ export const CategoryModal = () => {
         </div>
       </div>
     </div>
-
+ 
   )
 };
