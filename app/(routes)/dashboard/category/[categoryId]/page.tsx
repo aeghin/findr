@@ -35,7 +35,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
             <div className="mb-4">
                 <div className="flex justify-between items-center">
                     <Link href='/dashboard'>
-                        <ChevronLeft className="hover:text-purple-400" />
+                        <ChevronLeft className="hover:text-purple-400 w-8 h-8" />
                     </Link>
                     <h1 className="text-xl font-semibold">{categoryName}</h1>
                     <button onClick={onOpen} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300">
