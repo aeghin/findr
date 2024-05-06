@@ -34,8 +34,8 @@ export const CategoryCard = ({ id }: Props) => {
                 <Link href={`/dashboard/category/${id}`}>
                     <h5 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{categoryName?.name}</h5>
                 </Link>
-                <div className='grid'>
-                    <button onClick={() => setIsOpen(true)} className='mb-2 transition duration-200 ease-in-out transform hover:scale-110 hover:text-blue-700'>
+                <div className='flex space-x-2'>
+                    <button onClick={() => setIsOpen(true)} className='transition duration-200 ease-in-out transform hover:scale-110 hover:text-blue-700'>
                         <Pencil />
                     </button>
                     <button onClick={confirmDelete} className="transition duration-200 ease-in-out transform hover:scale-110 hover:text-red-600">

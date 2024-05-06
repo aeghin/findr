@@ -29,7 +29,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 
     }, []);
 
-
+    console.log(categoryName);
     return (
         <div className="p-4">
             <div className="mb-4">
