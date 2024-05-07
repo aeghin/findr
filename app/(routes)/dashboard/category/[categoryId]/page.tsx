@@ -24,12 +24,12 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
     const { isOpen, onOpen } = useCreateAccount();
 
     useEffect(() => {
-
+    
         getAccounts(categoryId);
 
     }, []);
 
-    console.log(categoryName);
+    // console.log(categoryName);
     return (
         <div className="p-4">
             <div className="mb-4">

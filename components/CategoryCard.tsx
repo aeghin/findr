@@ -43,7 +43,7 @@ export const CategoryCard = ({ id }: Props) => {
                     </button>
                 </div>
             </div>
-            {isDelete && <ConfirmDeleteModal handleDelete={handleDelete} />}
+            {isDelete && <ConfirmDeleteModal handleDelete={handleDelete}  closeModal={closeModal} />}
             {isOpen && <EditCatModal id={id} categoryName={categoryName?.name} onClose={() => setIsOpen(false)} />}
         </>
     )
