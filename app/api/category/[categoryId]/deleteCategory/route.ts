@@ -23,11 +23,16 @@ export async function DELETE(req: Request, { params }: { params: { categoryId: s
             return new NextResponse("user does not exist", { status: 404 });
         };
 
-        await prismadb.category.delete({
+        const deletedCategory = await prismadb.category.deleteMany({
             where: {
-                id: categoryId
+                id: categoryId,
+                userId: user.id
             }
         });
+
+        if (deletedCategory.count === 0) {
+            return new NextResponse("Category not found or unauthorized access", { status: 403 });
+        };
 
         return NextResponse.json({ message: "succesfully deleted category" }, { status: 200 });
 

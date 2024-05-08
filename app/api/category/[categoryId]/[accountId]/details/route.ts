@@ -27,7 +27,8 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
 
         const category = await prismadb.category.findFirst({
             where: {
-                id: categoryId
+                id: categoryId,
+                userId: user?.id
             }
         });
 
@@ -35,9 +36,10 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
             return new NextResponse("category doesn't exist", { status: 404 });
         };
 
-        const accountDetails = await prismadb.account.findUnique({
+        const accountDetails = await prismadb.account.findFirst({
             where: {
-                id: accountId
+                id: accountId,
+                categoryId: categoryId
             },
             include: {
                 links: true

@@ -27,9 +27,10 @@ export async function PUT(req: Request, { params }: { params: { categoryId: stri
       return new NextResponse("user doesn't exist", { status: 401 });
     };
 
-    const renamedCategory = await prismadb.category.update({
+    const renamedCategory = await prismadb.category.updateMany({
       where: {
-        id: parsedCategory
+        id: parsedCategory,
+        userId: user.id
       },
       data: {
         name: categoryName

@@ -14,21 +14,37 @@ export async function DELETE(req: Request, { params }: { params: { categoryId: s
         if (!userId) {
             return new NextResponse("unauthorized user", { status: 401 });
         };
-// fix query 
 
-        await prismadb.category.delete({
+        const user = await prismadb.user.findUnique({
             where: {
-                id: categoryId
-            },
-            include: {
-                accounts: {
-                    where: {
-                        id: accountId
-                    }
-                }
+                clerkId: userId
             }
         });
 
+        const category = await prismadb.category.findFirst({
+            where: {
+                id: categoryId,
+                userId: user?.id
+            }
+        });
+
+        if (!category) {
+            return new NextResponse("Category not found or unauthorized access", { status: 403 });
+        }
+
+
+        const deletedAccount = await prismadb.account.deleteMany({
+            where: {
+                id: accountId,
+                categoryId: categoryId
+            }
+        });
+
+        if (!deletedAccount) {
+            return new NextResponse('error trying to delete account', { status: 404 });
+        };
+
+        return NextResponse.json({ message: "Successfully deleted account" }, { status: 200 });
 
     } catch (err) {
         console.log("code error", err);
