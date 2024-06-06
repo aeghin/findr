@@ -10,12 +10,10 @@ export interface Accounts {
     }
 };
 
-type AccountDetailsType = { [key: string]: Link[] };
-
 export interface AccountState {
     accounts: Accounts[];
     categoryName: string;
-    accountDetails: AccountDetailsType;
+    accountDetails: Record<number, AccountDetails>;
     isLoading: boolean;
     isFetching: boolean;
     getAccounts: (categoryId: string) => Promise<void>;

@@ -24,8 +24,9 @@ const AccountsPage = ({ params }: AccountsParams) => {
         getAccountDetails(accountId, categoryId);
     }, [accountId, categoryId]);
 
-    const details = accountDetails[accountId];
-
+    // const details = accountDetails[accountId];
+    const accountIdInt = parseInt(accountId);
+    const details = accountDetails[accountIdInt];
 
     return (
         <>
@@ -50,10 +51,11 @@ const AccountsPage = ({ params }: AccountsParams) => {
                         <Link href={`/dashboard/category/${categoryId}`}>
                             <ChevronLeft className="hover:text-purple-400 w-8 h-8" />
                         </Link>
-                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4">Account Details for Account #{accountId}</h2>
+                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4">Social Account(s) for: <span className="text-bold text-4xl text-purple-600">{`${details.name}`}</span></h2>
+
                     </div>
                     <div className="space-y-2 lg:space-y-4">
-                        {details?.map(({ id, url, platform }) => (
+                        {details.links?.map(({ id, url, platform }) => (
                             <a key={id} href={url} target="_blank" rel="noopener noreferrer" className="flex justify-center items-center lg:block lg:w-full p-4 md:p-6 lg:p-8 lg:shadow-lg bg-white rounded shadow hover:bg-gray-50 transition duration-300 ease-in-out">
                                 <SocialIcon className="lg:ml-4" network={`${platform.toLowerCase()}`} as="div" />
                                 <div className="font-medium text-lg ml-2 lg:text-xl">{platform}</div>

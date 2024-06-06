@@ -52,8 +52,13 @@ export interface AccountDetails {
     id: number;
     name: string;
     categoryId: number;
-    links: Link[];
-};
+    links: {
+        id: number;
+        platform: string;
+        url: string;
+        accountId: number;
+    }[];
+}
 
 
 export const useCreateCategory = create<CreateCategory>((set) => ({
@@ -119,7 +124,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     },
     renameCategory: async (categoryId: any, categoryName: any) => {
         try {
-            
+
             const renamedCategory = await axios.put(`api/category/${categoryId}/editCategory`, { categoryName });
             set(state => ({
                 categories: state.categories.map(category => {
@@ -174,7 +179,7 @@ export const useAccountStore = create<AccountState>((set) => ({
         try {
             set({ isFetching: true });
             const response = await axios.get<AccountDetails>(`/api/category/${categoryId}/${accountId}/details`);
-            set((state) => ({ accountDetails: { ...state.accountDetails, [accountId]: response.data.links } }));
+            set((state) => ({ accountDetails: { ...state.accountDetails, [accountId]: response.data } }));
         } catch (error) {
             console.error('failed to get account detail(s)', error);
         } finally {

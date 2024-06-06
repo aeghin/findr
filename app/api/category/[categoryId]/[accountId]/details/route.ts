@@ -32,6 +32,7 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
             }
         });
 
+
         if (!category) {
             return new NextResponse("category doesn't exist", { status: 404 });
         };
@@ -42,7 +43,7 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
                 categoryId: categoryId
             },
             include: {
-                links: true
+                links: true,
             }
         });
 
