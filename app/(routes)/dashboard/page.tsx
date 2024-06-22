@@ -71,7 +71,7 @@ const DashboardPage = () => {
                             Create Category
                         </Button>
                     </div>
-                    <div className='flex justify-center mb-4'>
+                    <div className='flex justify-center mb-2'>
                         <Input type='text' placeholder='Search for categories...' className='w-1/3' />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
