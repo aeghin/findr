@@ -30,8 +30,8 @@ export const CategoryCard = ({ id }: Props) => {
 
     return (
         <>
-            <div className="group flex items-center justify-between p-6 text-center bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-color transition-shadow duration-200 ease-in-out">
-                <Link href={`/dashboard/category/${id}`}>
+            <div className="group flex items-center justify-between p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-color transition-shadow duration-200 ease-in-out">
+                <Link href={`/dashboard/category/${id}`} className='flex-grow'>
                     <h5 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{categoryName?.name}</h5>
                 </Link>
                 <div className='flex space-x-2'>
