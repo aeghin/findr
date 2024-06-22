@@ -58,7 +58,7 @@ export interface AccountDetails {
         url: string;
         accountId: number;
     }[];
-}
+};
 
 
 export const useCreateCategory = create<CreateCategory>((set) => ({
