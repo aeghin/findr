@@ -1,7 +1,7 @@
 'use client'
 
 import { useCreateCategory } from '@/store/create-cat-modal';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -29,11 +29,20 @@ const DashboardPage = () => {
     const openModal = useCreateCategory((state) => state.onOpen);
 
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const [category, setCategory] = useState(categories);
+
 
     useEffect(() => {
         fetchCategories();
     }, []);
     // console.log(categories);
+
+    useEffect(() => {
+        const filteredCategories = categories.filter(category => category.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()));
+        setCategory(filteredCategories);
+
+    }, [searchTerm, categories]);
 
     return (
         <>
@@ -72,10 +81,10 @@ const DashboardPage = () => {
                         </Button>
                     </div>
                     <div className='flex justify-center mb-2'>
-                        <Input type='text' placeholder='Search for categories...' className='w-1/3' />
+                        <Input type='text' placeholder='Search for categories...' className='w-1/3' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {categories.map(({ id }) => (
+                        {category.map(({ id }) => (
                             <CategoryCard key={id} id={id} />
                         ))}
                     </div>
