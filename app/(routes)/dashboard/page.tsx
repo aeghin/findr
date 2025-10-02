@@ -40,6 +40,7 @@ const DashboardPage = () => {
 
     useEffect(() => {
         const filteredCategories = categories.filter(category => category.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()));
+        // console.log(filteredCategories);
         setCategory(filteredCategories);
 
     }, [searchTerm, categories]);
