@@ -1,11 +1,11 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request, { params }: { params: { categoryId: string } }) {
     try {
 
-        const { userId } = auth();
+        const { userId } = await auth();
 
         const categoryId = parseInt(params.categoryId, 10);
 

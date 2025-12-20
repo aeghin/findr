@@ -1,3 +1,6 @@
+
+"use client";
+
 import { UserButton } from "@clerk/nextjs";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
@@ -16,7 +19,7 @@ const Navbar = () => {
                 </div>
                 <div>
                     <div>
-                        <UserButton afterSignOutUrl="/" />
+                        <UserButton />
                     </div>
                 </div>
             </div>

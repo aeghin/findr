@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
@@ -9,7 +9,7 @@ export async function PUT(req: Request, { params }: { params: { categoryId: stri
     const body = await req.json();
     const { categoryName } = body;
     // console.log(categoryName);
-    const { userId } = auth();
+    const { userId } = await auth();
 
     const parsedCategory = parseInt(params.categoryId, 10);
 

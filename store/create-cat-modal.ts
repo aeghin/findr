@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Accounts, AccountState } from './types';
 
 
-
 interface Category {
     id: number;
     name: string;

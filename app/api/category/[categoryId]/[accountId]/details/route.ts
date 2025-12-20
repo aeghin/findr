@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
@@ -6,7 +6,7 @@ export async function GET(req: Request, { params }: { params: { categoryId: stri
 
     try {
         // console.log("this is erroring out:", params);
-        const { userId } = auth();
+        const { userId } = await auth();
 
         const categoryId = parseInt(params.categoryId, 10);
         const accountId = parseInt(params.accountId, 10);
